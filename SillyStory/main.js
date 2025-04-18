@@ -12,7 +12,7 @@ const storyText = "School had just ended for the day, so :insertx: left to :inse
 const insertx = ["the Dell Monitor", "Mickey Mouse", "Ava", "a wild giraffe", "a Coelacanth", "John the Skeleton", "Windows XP", "Notepad++"]; //Main character
 const inserty = ["the soup kitchen", "Firefox", "president of the United States", "the economy", "conformity"]; //Opponent
 const insertz = ["30 minutes", "5 episodes", "43 days", "13 weeks and 4 schools"]; //Time spent dueling
-const insertw = ["a kitkat", "\"A new school. \"I hate this school so much\"", "a Nintendo Switch 2", "\"None, for I am not tempted by mortal possesions... infnite wealth\"", "the power to traverse the multiverse", "a better housing market"]; //Wish granted
+const insertw = ["a kitkat", "\"A new school. I hate this school so much\"", "a Nintendo Switch 2", "\"None, for I am not tempted by mortal possesions... infnite wealth\"", "the power to traverse the multiverse", "a better housing market"]; //Wish granted
 const insertv = ["walk", "slowly and painstakingly crawl", "sprint", "hover", "cartwheel", "gallop on all fours"]; //method of getting home
 const insertu = ["main doors", "side door", "roof exit", "window"]; //Method of exit from school
 
