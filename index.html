@@ -1,65 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>Welcome, stranger</title>
+		<title>Welcome, stranger</title>
 
-      	<style>
-		body {
-			background-image: url("indexImages/Pink_Tree_Flower.jpg");
-			background-repeat: no-repeat;
-			background-size: 100%;
-		}
-
-		.niceText {
-			outline: 2px solid black;
-			/*
-			top: 10%;
-			left: 10%;
-			width: 25%;
-			height: 25%;
-			
-			eh ill come back to it
-			*/
-			background-color: white;
-		}
-		
-		.snow-container {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			pointer-events: none;
-			overflow: hidden;
-			z-index: -1; /* Ensure snow is behind other content */
-		}
-			
-		.snowflake {
-			position: absolute;
-			width: 250px;
-			height: 250px;
-			/* background: #ed68ad; */
-			
-			background-image: url("indexImages/leaf1.png");
-			background-repeat: no-repeat;
-			background-size: 100%;
-			
-			opacity: 0.5;
-			animation: fall linear infinite;
-			
-			offset-path: path('M 50 80 C 150 -20 250 180 350 80');
-			offset-rotate: auto;
-			
-			/* border-radius: 50%;
-			outline: 1px solid #c44d8a; */
-		}
-
-		@keyframes fall {
-			to {
-				transform: translateY(100vh);
-			}
-		}
-	</style>
+		<link rel="stylesheet" href="indexStyle.css">
   </head>
 
 <body>
@@ -76,35 +20,6 @@
 	</div>
 </body>
 
-  <script>
-	const snowContainer = document.querySelector('.snow-container');
-	const numberOfSnowflakes = 10; // Adjust for more or fewer snowflakes
-
-	function createSnowflake() {
-	const snowflake = document.createElement('div');
-	snowflake.classList.add('snowflake');
-	
-	snowflake.style.backgroundImage = "url(\"indexImages/leaf" + Math.round(Math.random() * 2 + 1) + ".png\")";
-	
-	snowflake.style.left = `${Math.random() * 100}vw`;
-	snowflake.style.animationDuration = `${Math.random() * 10 + 2}s`; // Random animation duration
-	snowflake.style.opacity = Math.random() + 6; // Random opacity
-	snowflake.style.fontSize = `${Math.random() * 5 + 10}px`; // Random size
-
-	snowflake.style.transform = "translateX(" + Math.random() * 100 + 1 + "vw";
-
-	snowContainer.appendChild(snowflake);
-
-	// Remove snowflake after it falls off screen
-	snowflake.addEventListener('animationiteration', () => {
-	snowflake.remove();
-	createSnowflake(); // Create a new snowflake to replace the old one
-		});
-	}
-
-	// Create initial snowflakes
-	for (let i = 0; i < numberOfSnowflakes; i++) {
-		createSnowflake();
-	}
+  <script src="indexScript">
 	</script>
 </html>
