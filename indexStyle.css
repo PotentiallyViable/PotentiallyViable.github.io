@@ -1,0 +1,48 @@
+body {
+			background-image: url("Pink_Tree_Flower.jpg");
+			background-repeat: no-repeat;
+			background-size: 100%;
+		}
+
+		.niceText {
+			outline: 2px solid black;
+			background-color: white;
+		}
+		
+		.snow-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			overflow: hidden;
+			z-index: -1; /* Ensure snow is behind other content */
+		}
+			
+		.snowflake {
+			position: absolute;
+			width: 250px;
+			height: 250px;
+			/* background: #ed68ad; */
+			
+			background-image: url("leaf1.png");
+			background-repeat: no-repeat;
+			background-size: 100%;
+			
+			opacity: 0.5;
+			animation: fall linear infinite;
+			
+			offset-path: path('M 50 80 C 150 -20 250 180 350 80');
+			offset-rotate: auto;
+			
+			/* border-radius: 50%;
+			outline: 1px solid #c44d8a; */
+		}
+
+		@keyframes fall {
+			to {
+				transform: translateY(100vh);
+				offset-distance: 80%;
+			}
+		}
