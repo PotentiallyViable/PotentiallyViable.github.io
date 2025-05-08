@@ -1,5 +1,5 @@
 body {
-			background-image: url("Pink_Tree_Flower.jpg");
+			background-image: url("indexImages/Pink_Tree_Flower.jpg");
 			background-repeat: no-repeat;
 			background-size: 100%;
 		}
@@ -26,7 +26,7 @@ body {
 			height: 250px;
 			/* background: #ed68ad; */
 			
-			background-image: url("leaf1.png");
+			background-image: url("indexImages/leaf1.png");
 			background-repeat: no-repeat;
 			background-size: 100%;
 			
