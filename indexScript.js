@@ -11,7 +11,7 @@ function createSnowflake() {
 const snowflake = document.createElement("div");
 snowflake.classList.add("snowflake");
 	
-snowflake.style.backgroundImage = "url(\"IndexImages/leaf" + Math.floor(Math.random() * 2 + 1) + ".png\")";
+snowflake.style.backgroundImage = "url(\"indexImages/leaf" + Math.floor(Math.random() * 2 + 1) + ".png\")";
 	
 snowflake.style.left = `${Math.random() * 100}vw`;
 snowflake.style.animationDuration = `${Math.random() * 10 + 2}s`; // Random animation duration
