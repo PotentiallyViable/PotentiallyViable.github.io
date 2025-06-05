@@ -3,8 +3,8 @@ const numberOfSnowflakes = 10; // Adjust for more or fewer snowflakes
 	
 //Music stuff
 let music = false;
-const musicToggleButon = document.querySelector(".toggleMusic");
-const musicDisplay = document.querySelector(".musicDisplay");
+//const musicToggleButon = document.querySelector(".toggleMusic");
+//const musicDisplay = document.querySelector(".musicDisplay");
 
 function createSnowflake() {
 const snowflake = document.createElement('div');
@@ -21,7 +21,7 @@ snowflake.style.transform = "translateX(" + Math.random() * 100 + 1 + "vw";
 
 snowContainer.appendChild(snowflake);
 	
-musicDisplay.style.color = "white";
+//musicDisplay.style.color = "white";
 	
 // Remove snowflake after it falls off screen
 snowflake.addEventListener('animationiteration', () => {
