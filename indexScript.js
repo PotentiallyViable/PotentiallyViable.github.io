@@ -1,16 +1,17 @@
-const snowContainer = document.querySelector('.snow-container');
+const snowContainer = document.querySelector(".snow-container");
 const numberOfSnowflakes = 10; // Adjust for more or fewer snowflakes
 	
 //Music stuff
-let music = false;
+
+//let music = false;
 //const musicToggleButon = document.querySelector(".toggleMusic");
 //const musicDisplay = document.querySelector(".musicDisplay");
 
 function createSnowflake() {
-const snowflake = document.createElement('div');
-snowflake.classList.add('snowflake');
+const snowflake = document.createElement("div");
+snowflake.classList.add("snowflake");
 	
-snowflake.style.backgroundImage = "url(\"leaf" + Math.round(Math.random() * 2 + 1) + ".png\")";
+snowflake.style.backgroundImage = "url(\"IndexImages/leaf" + Math.floor(Math.random() * 2 + 1) + ".png\")";
 	
 snowflake.style.left = `${Math.random() * 100}vw`;
 snowflake.style.animationDuration = `${Math.random() * 10 + 2}s`; // Random animation duration
@@ -24,7 +25,7 @@ snowContainer.appendChild(snowflake);
 //musicDisplay.style.color = "white";
 	
 // Remove snowflake after it falls off screen
-snowflake.addEventListener('animationiteration', () => {
+snowflake.addEventListener("animationiteration", () => {
 snowflake.remove();
 createSnowflake(); // Create a new snowflake to replace the old one
 	});
