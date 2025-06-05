@@ -4,7 +4,7 @@ const numberOfSnowflakes = 10; // Adjust for more or fewer snowflakes
 //Music stuff
 
 //let music = false;
-//const musicToggleButon = document.querySelector(".toggleMusic");
+//const musicToggleButton = document.querySelector(".toggleMusic");
 //const musicDisplay = document.querySelector(".musicDisplay");
 
 function createSnowflake() {
@@ -37,7 +37,7 @@ for (let i = 0; i < numberOfSnowflakes; i++) {
 }
 
 /*
-musicToggleButon.addEventListener("click", () => {
+musicToggleButton.addEventListener("click", () => {
 if(music)
 {
 	console.log("Music set to false");
