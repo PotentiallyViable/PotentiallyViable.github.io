@@ -35,7 +35,8 @@ createSnowflake(); // Create a new snowflake to replace the old one
 for (let i = 0; i < numberOfSnowflakes; i++) {
 	createSnowflake();
 }
-	
+
+/*
 musicToggleButon.addEventListener("click", () => {
 if(music)
 {
@@ -50,3 +51,4 @@ else
 	musicDisplay.animation = "musicTextFade linear 0.5s normal";
 }
 });
+*/
