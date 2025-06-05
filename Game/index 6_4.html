@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ye olden game</title>
+	</head>
+
+	<body>
+		<p>text</p>
+	
+		<canvas width="800" height="600"></canvas>
+		<script src="https://cdn.codehs.com/chs-js-lib/0.2.21/dist/chs.iife.js"></script>
+		<!-- <script src="Scripts.js"</script> -->
+		<script>
+			const cursor = new Circle(9);
+			cursor.setPosition(getWidth() / 2, getHeight() / 2);
+			cursor.setColor("red");
+			add(cursor);
+			let laser = [];
+			let bullets = [];
+			
+			//Timer + game over text
+			let timeSurvived = 0;
+			const gameOver = new Text("Game over temp", "30pt Arial");
+			gameOver.setPosition(getWidth() / 2 - 300, getHeight() / 2);
+
+			let clearForNextAttack = true;
+			let totalLasers = 0;
+			let bulletAttack = false;
+			let lasersKill = false;
+			
+			createBorder();
+			
+			function main()
+			{
+				mouseMoveMethod(movePlayer);
+				
+				//setTimer(attackLaserGrid1, 10);
+				//setTimer(attackLaserGrid2, 10);
+				//setTimer(attackLaserGrid3, 10);
+				//setTimer(attackHomingLasers1, 50);
+				//setTimer(attackHomingLasers2, 200);
+				
+				setTimer(updateTimer, 1000);
+				setTimer(checkCollision, 10);
+				
+				setTimer(doAttack, 1000);
+			}
+			
+			function movePlayer(e)
+			{
+				cursor.setPosition(e.getX(), e.getY());
+			}
+			
+			function createBorder()
+			{
+				let border1 = new Line(0,0, getWidth(), 0);
+				border1.setColor("black");
+				add(border1);
+				
+				let border2 = new Line(0,getHeight(), getWidth(), getHeight());
+				border2.setColor("black");
+				add(border2);
+				
+				let border3 = new Line(0,0, 0, getHeight());
+				border3.setColor("black");
+				add(border3);
+				
+				let border4 = new Line(getWidth(),0, getWidth(), getHeight());
+				border4.setColor("black");
+				add(border4);
+			}
+			
+			let attack = 1;
+			function doAttack()
+			{
+				attack = Math.floor(Math.random()*6);
+				if(attack === 1 && clearForNextAttack)
+				{
+					setTimer(attackLaserGrid1, 25);
+				}
+				else if(attack === 2 && clearForNextAttack)
+				{
+					setTimer(attackLaserGrid2, 0);
+				}
+				else if(attack === 3 && clearForNextAttack)
+				{
+					setTimer(attackLaserGrid3, 30);
+				}
+				else if(attack === 4 && clearForNextAttack)
+				{
+					setTimer(attackHomingLasers1, 50);
+				}
+				else if(attack === 5 && clearForNextAttack)
+				{
+					setTimer(attackHomingLasers2, 200);
+				}
+			}
+			
+			function attackLaserGrid1()
+			{
+				clearForNextAttack = false;
+				
+				//X visuals
+				if(totalLasers < 10)
+				{
+					console.log("Generating X Lines...");
+					totalLasers++;
+					laser[totalLasers] = new Line(getWidth() / 10 * totalLasers, 0,	getWidth() / 10 * totalLasers, getHeight());
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				//Y visuals
+				else if(totalLasers < 20)
+				{
+					console.log("Generating Y Lines...");
+					totalLasers++;
+					laser[totalLasers] = new Line(0, getHeight() / 10 * (totalLasers - 10),	getWidth(), getHeight() / 10 * (totalLasers - 10));
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				else
+				{
+					bulletAttack = false;
+					stopTimer(attackLaserGrid1);
+					
+					setTimer(activateLasers, 10);
+				}
+			}
+			
+			function attackLaserGrid2()
+			{
+				clearForNextAttack = false;
+				//bottom left
+				if(totalLasers < 15)
+				{
+					console.log("Generating bottom left...");
+					totalLasers++;
+					laser[totalLasers] = new Line(0, getHeight() / 15 * totalLasers,  getWidth() / 15 * totalLasers, getHeight());
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				
+				//top right
+				else if(totalLasers < 30)
+				{
+					console.log("Generating top right...");
+					totalLasers++;
+					laser[totalLasers] = new Line(getWidth() / 15 * (totalLasers - 15), 0,  getWidth(), getHeight() / 15 * (totalLasers - 15));
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				
+				//top left
+				else if(totalLasers < 45)
+				{
+					console.log("Generating top left...");
+					totalLasers++;
+					laser[totalLasers] = new Line(0, getHeight()- (getHeight() / 15 * (totalLasers - 30)),  (getWidth() / 15 * (totalLasers - 30)), 0);
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				
+				//bottom right
+				else if(totalLasers < 60)
+				{
+					console.log("Generating bottom right...");
+					totalLasers++;
+					laser[totalLasers] = new Line(getWidth() / 15 * (totalLasers - 45), 600,  getWidth(), getHeight()-(getHeight() / 15 * (totalLasers - 45)));
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				
+				else
+				{
+					bulletAttack = false;
+					stopTimer(attackLaserGrid2);
+					//setTimer(activateLasers, 10);
+					setTimer(subattackHomingLasers, 25);
+				}
+			}
+			
+			function subattackHomingLasers()
+			{
+				clearForNextAttack = false;
+				const offset1 = Math.floor(Math.random()*100);
+				const offset2 = Math.floor(Math.random()*100);
+				
+				if(totalLasers < 75)
+				{
+					if(totalLasers % 2 === 0)
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() + offset1, 0,   cursor.getX() - offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(5);
+						add(laser[totalLasers]);
+					}
+					else
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() - offset1, 0,   cursor.getX() + offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(5);
+						add(laser[totalLasers]);
+					}
+				}
+				else
+				{
+					bulletAttack = false;
+					stopTimer(subattackHomingLasers);
+					setTimer(activateLasers, 10);
+				}
+			}
+			
+			function attackLaserGrid3()
+			{
+				clearForNextAttack = false;
+				if(totalLasers < 1)
+				{
+					console.log("Generating X lines...");
+					totalLasers++;
+					
+					laser[totalLasers] = new Line(getWidth() / 2 + getWidth() / 15, 0,    getWidth() / 2 - getWidth() / 15, getHeight());
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				else if(totalLasers < 2)
+				{
+					console.log("Generating X lines...");
+					totalLasers++;
+					
+					laser[totalLasers] = new Line(getWidth() / 2 - getWidth() / 15, 0,    getWidth() / 2 + getWidth() / 15, getHeight());
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				else if(totalLasers < 3)
+				{
+					console.log("Generating Y lines...");
+					totalLasers++;
+					
+					laser[totalLasers] = new Line(0, getHeight() / 2 + getHeight() / 15,    getWidth(), getHeight() / 2 - getHeight() / 15);
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				else if(totalLasers < 4)
+				{
+					console.log("Generating Y lines...");
+					totalLasers++;
+					
+					laser[totalLasers] = new Line(0, getHeight() / 2 - getHeight() / 15,    getWidth(), getHeight() / 2 + getHeight() / 15);
+					laser[totalLasers].setColor("magenta");
+					laser[totalLasers].setBorderWidth(5);
+					add(laser[totalLasers]);
+				}
+				else
+				{
+					bulletAttack = false;
+					stopTimer(attackLaserGrid3);
+					setTimer(activateLasers, 10);
+				}
+			}
+			
+			function attackHomingLasers1()
+			{
+				clearForNextAttack = false;
+				const offset1 = Math.floor(Math.random()*100);
+				const offset2 = Math.floor(Math.random()*100);
+				
+				if(totalLasers < 35)
+				{
+					if(totalLasers % 2 === 0)
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() + offset1, 0,   cursor.getX() - offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(4);
+						add(laser[totalLasers]);
+					}
+					else
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() - offset1, 0,   cursor.getX() + offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(4);
+						add(laser[totalLasers]);
+					}
+				}
+				else
+				{
+					bulletAttack = false;
+					stopTimer(attackHomingLasers1);
+					setTimer(activateLasers, 10);
+				}
+			}
+			
+			function attackHomingLasers2()
+			{
+				clearForNextAttack = false;
+				const offset1 = Math.floor(Math.random()*200);
+				const offset2 = Math.floor(Math.random()*200);
+				
+				if(totalLasers < 15)
+				{
+					if(totalLasers % 2 === 0)
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() + offset1, 0,   cursor.getX() - offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(17);
+						add(laser[totalLasers]);
+					}
+					else
+					{
+						totalLasers++;
+						laser[totalLasers] = new Line(cursor.getX() - offset1, 0,   cursor.getX() + offset2, getHeight());
+						laser[totalLasers].setColor("magenta");
+						laser[totalLasers].setBorderWidth(17);
+						add(laser[totalLasers]);
+					}
+				}
+				else
+				{
+					bulletAttack = false;
+					stopTimer(attackHomingLasers2);
+					setTimer(activateLasers, 10);
+				}
+			}
+			
+			let timer = 0;
+			function activateLasers()
+			{
+				timer++;
+				if(timer >= 20)
+				{
+					stopTimer(activateLasers);
+					for(let i = 1; i < laser.length; i++)
+					{
+						console.log("changing colors...");
+						laser[i].setColor("blue");
+					}
+					lasersKill = true;
+					console.log("done");
+					timer = 0;
+					if(!bulletAttack)
+					{
+						setTimer(despawnLasers, 10);
+					}
+					else
+					{
+						console.log("done");
+						totalLasers = 0;
+						//laser = [];
+						timer = 0;
+						clearForNextAttack = true;
+					}
+				}
+			}
+			
+			function despawnLasers()
+			{
+				timer++;
+				if(timer >= 30)
+				{
+					stopTimer(despawnLasers);
+					for(let i = 1; i < laser.length; i++)
+					{
+						console.log("despawning lasers...");
+						remove(laser[i]);
+					}
+					lasersKill = false;
+					laser.push("get rid of the lasers!");
+					console.log("done");
+					totalLasers = 0;
+					laser = [];
+					timer = 0;
+					clearForNextAttack = true;
+				}
+			}
+			
+			function updateTimer()
+			{
+				timeSurvived++;
+			}
+			
+			function checkCollision()
+			{
+				for(let i = 1; i < laser.length; i++)
+				{
+					if(laser[i].containsPoint(cursor.getX(), cursor.getY()) && lasersKill)
+					{
+						stopTimer(checkCollision);
+						stopGame();
+					}
+				}
+			}
+			
+			function stopGame()
+			{
+				stopTimer(updateTimer);
+				stopTimer(doAttack);
+				
+				remove(cursor);
+				gameOver.setText("Game over! You lasted: " + timeSurvived + " seconds.");
+				add(gameOver);
+			}
+			
+			main();
+		</script>
+	</body>
+</html>
